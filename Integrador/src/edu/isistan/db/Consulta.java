@@ -7,11 +7,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ConsultaRecaudacion {
+import javax.swing.event.SwingPropertyChangeSupport;
+
+public class Consulta {
 	private String driver;
 	private String uri;
-	
-	public ConsultaRecaudacion(String driver, String uri) {
+
+	public Consulta(String driver, String uri) {
 		this.driver = driver;
 		this.uri = uri;
 	}
@@ -28,25 +30,35 @@ public class ConsultaRecaudacion {
 		try {
 			Connection conn = DriverManager.getConnection(uri, "root", "");
 			conn.setAutoCommit(false);
-			consulta(conn);
+			recaudacionMayor(conn);
+			clienteMasFacturado(conn);
 			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static void consulta(Connection conn) throws SQLException {
-		String select = "SELECT p.nombre, sum(fp.cantidad * p.valor) as recaudacion "
+	private static void recaudacionMayor(Connection conn) throws SQLException {
+		String selectRecaudacion = "SELECT p.nombre, sum(fp.cantidad * p.valor) as recaudacion "
 				+ "FROM facturaProducto fp NATURAL JOIN producto p "
 				+ "GROUP BY fp.idProducto, p.nombre "
 				+ "ORDER BY recaudacion DESC "
 				+ "LIMIT 1";
-		
-		PreparedStatement ps = conn.prepareStatement(select);
+		PreparedStatement ps = conn.prepareStatement(selectRecaudacion);
 		ResultSet rs = ps.executeQuery();
 		while (rs.next()) {
-			System.out.println("El producto que mas recaudo fue: " + rs.getString(1) + " con un total de $ " + rs.getInt(2));	
+			System.out.println("El producto que mas recaudo fue: " + rs.getString(1) + " con un total de $ " + rs.getInt(2));
 		}
 	}
-
+	private static void clienteMasFacturado(Connection conn) throws SQLException {
+		String selectClientesFacturados = "SELECT c.idCliente, c.nombre, COUNT(f.idCliente) AS valor "
+				+ "FROM cliente c NATURAL JOIN factura f "
+				+ "GROUP BY f.idCliente "
+				+ "ORDER BY valor DESC ";
+		PreparedStatement ps = conn.prepareStatement(selectClientesFacturados);
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			System.out.println("El usuario: " + rs.getString(2) + " con un total de " + rs.getInt(3)+" facturas");
+		}
+	}
 }

@@ -22,7 +22,7 @@ public class DAOCliente {
 		String insert = "INSERT INTO cliente (idCliente, nombre, email) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		CSVParser parser;
-			parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\clientes.csv"));
+			parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\Eclipse IDE\\eclipse\\Arquitectura-Web\\Integrador\\src\\edu\\isistan\\db\\clientes.csv"));
 			for (CSVRecord row :parser) {
 				ps.setInt(1, Integer.parseInt(row.get("idCliente")));
 				ps.setString(2, row.get("nombre"));
