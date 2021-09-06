@@ -12,20 +12,21 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 
 public class DAOFactura {
+
 	public DAOFactura() {
 		super();
 	}
 
-	protected static void addFactura(Connection conn) throws SQLException, FileNotFoundException, IOException {
+	public static void addFactura(Connection conn) throws SQLException, FileNotFoundException, IOException {
 		String insert = "INSERT INTO factura (idFactura, idCliente) VALUES(?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		CSVParser parser;
-			parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\Eclipse IDE\\eclipse\\Arquitectura-Web\\Integrador\\src\\edu\\isistan\\db\\facturas.csv"));
-			for (CSVRecord row :parser) {
-				ps.setInt(1, Integer.parseInt(row.get("idFactura")));
-				ps.setInt(2, Integer.parseInt(row.get("idCliente")));
-				ps.executeUpdate();
-			}
+		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\facturas.csv"));
+		for (CSVRecord row : parser) {
+			ps.setInt(1, Integer.parseInt(row.get("idFactura")));
+			ps.setInt(2, Integer.parseInt(row.get("idCliente")));
+			ps.executeUpdate();
+		}
 		ps.close();
 		conn.commit();
 	}

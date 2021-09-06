@@ -22,15 +22,15 @@ public class DAOFacturaProducto {
 		String insert = "INSERT INTO facturaProducto (cantidad, idProducto, idFactura) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		CSVParser parser;
-			parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\Eclipse IDE\\eclipse\\Arquitectura-Web\\Integrador\\src\\edu\\isistan\\db\\facturas-productos.csv"));
-			for (CSVRecord row : parser) {
-				ps.setInt(1, Integer.parseInt(row.get("cantidad")));
-				ps.setInt(2, Integer.parseInt(row.get("idProducto")));
-				ps.setInt(3, Integer.parseInt(row.get("idFactura")));
-				ps.executeUpdate();
-			}
+		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\facturas-productos.csv"));
+		for (CSVRecord row : parser) {
+			ps.setInt(1, Integer.parseInt(row.get("cantidad")));
+			ps.setInt(2, Integer.parseInt(row.get("idProducto")));
+			ps.setInt(3, Integer.parseInt(row.get("idFactura")));
+			ps.executeUpdate();
+		}
 		ps.close();
 		conn.commit();
 	}
-	
+
 }
