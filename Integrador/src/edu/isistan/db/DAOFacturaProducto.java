@@ -18,6 +18,10 @@ public class DAOFacturaProducto {
 		super();
 	}
 
+	/*
+	 * Agrega los datos de las diferentes relaciones entre facturas y productos a la tabla facturaProducto en la bbdd, 
+	 * trae los datos desde un archivo .csv cuya ruta DEBE SER SETEADA ANTES DE COMENZAR
+	 */
 	protected static void addFacturaProducto(Connection conn) throws SQLException, FileNotFoundException, IOException {
 		String insert = "INSERT INTO facturaProducto (cantidad, idProducto, idFactura) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);

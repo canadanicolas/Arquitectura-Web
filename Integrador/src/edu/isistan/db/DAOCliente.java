@@ -21,6 +21,10 @@ public class DAOCliente {
 		super();
 	}
 
+	/*
+	 * Agrega los datos de los clientes a la tabla clientes en la bbdd, trae los datos desde un archivo .csv 
+	 * cuya ruta DEBE SER SETEADA ANTES DE COMENZAR
+	 */
 	protected static void addCliente(Connection conn) throws SQLException, FileNotFoundException, IOException {
 		String insert = "INSERT INTO cliente (idCliente, nombre, email) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
@@ -36,6 +40,9 @@ public class DAOCliente {
 		conn.commit();
 	}
 
+	/*
+	 * Trae de la bbdd una lista de los 15 clientes que mas veces han sido facturados 
+	 */
 	public ArrayList<Cliente> getBestCustomers(String driver, String uri) {
 		ArrayList<Cliente> arrayBestCustomers = new ArrayList<>();
 		try {

@@ -30,6 +30,9 @@ public class DAOFactory {
 		this.facturaProducto = new DAOFacturaProducto();
 	}
 
+	/*
+	 * Metodo que comienza la creacion de las tablas de la base de datos y luego les inserta los datos
+	 */
 	protected void creation() throws FileNotFoundException, IOException {
 		try {
 			Class.forName(driver).getDeclaredConstructor().newInstance();
@@ -50,6 +53,9 @@ public class DAOFactory {
 		}
 	}
 
+	/*
+	 * Crea las tablas de la bbdd, llamado por creation();
+	 */
 	private void createTables(Connection conn) throws SQLException {
 
 		String table1 = "CREATE TABLE cliente(" + "idCliente  INT," + "nombre VARCHAR(500)," + "email VARCHAR(150),"
@@ -75,6 +81,9 @@ public class DAOFactory {
 		conn.commit();
 	}
 
+	/*
+	 * Llama a los metodos que insertan los datos en cada tabla segun su clase
+	 */
 	private void insertData(Connection conn) throws FileNotFoundException, SQLException, IOException {
 		cliente.addCliente(conn);
 		factura.addFactura(conn);
@@ -82,10 +91,16 @@ public class DAOFactory {
 		facturaProducto.addFacturaProducto(conn);
 	}
 
+	/*
+	 * Llama al metodo que trae la lista de los clientes mas facturados
+	 */
 	protected ArrayList<Cliente> getBestCustomers() {
 		return cliente.getBestCustomers(driver, uri);
 	}
 
+	/*
+	 * Llama al metodo que trae el producto que mas recauda
+	 */
 	protected Producto getBestProduct() {
 		return producto.getBestProduct(driver, uri);
 	}

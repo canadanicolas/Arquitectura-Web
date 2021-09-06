@@ -20,6 +20,10 @@ public class DAOProducto {
 		super();
 	}
 
+	/*
+	 * Agrega los datos de los producto a la tabla producto en la bbdd, trae los datos desde un archivo .csv 
+	 * cuya ruta DEBE SER SETEADA ANTES DE COMENZAR
+	 */
 	protected static void addProducto(Connection conn) throws SQLException, FileNotFoundException, IOException {
 		String insert = "INSERT INTO producto (idProducto, nombre, valor) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);

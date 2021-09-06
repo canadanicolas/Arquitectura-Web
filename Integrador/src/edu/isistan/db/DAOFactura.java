@@ -17,6 +17,10 @@ public class DAOFactura {
 		super();
 	}
 
+	/*
+	 * Agrega los datos de las diferentes facturas a la tabla factura en la bbdd, trae los datos desde un archivo .csv 
+	 * cuya ruta DEBE SER SETEADA ANTES DE COMENZAR
+	 */
 	public static void addFactura(Connection conn) throws SQLException, FileNotFoundException, IOException {
 		String insert = "INSERT INTO factura (idFactura, idCliente) VALUES(?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
