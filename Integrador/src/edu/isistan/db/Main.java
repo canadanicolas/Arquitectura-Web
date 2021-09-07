@@ -7,13 +7,9 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		/*
-		 * Crea una factory dependiendo de se quiera utilizar (por ahora solo soporta mysql y derby),
-		 * el que no se quiera utilizar tiene que estar comentado antes de comenzar
-		 */
+
 		
 		DAOFactory factory = new DAOFactory("mysql");
-		//DAOFactory factory = new DAOFactory("derby");
 		
 		factory.creation(); //inicia la creacion y carga de datos de las tablas de la bbdd
 

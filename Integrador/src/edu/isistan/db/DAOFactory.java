@@ -57,7 +57,7 @@ public class DAOFactory {
 	 * Crea las tablas de la bbdd, llamado por creation();
 	 */
 	private void createTables(Connection conn) throws SQLException {
-
+		
 		String table1 = "CREATE TABLE cliente(" + "idCliente  INT," + "nombre VARCHAR(500)," + "email VARCHAR(150),"
 				+ "PRIMARY KEY(idCliente))";
 		conn.prepareStatement(table1).execute();
