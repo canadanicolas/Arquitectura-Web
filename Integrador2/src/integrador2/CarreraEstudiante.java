@@ -30,10 +30,14 @@ public class CarreraEstudiante {
 	
 	@Column(nullable = true)
 	LocalDate fechaEgreso;
+	
+	public CarreraEstudiante() {
+		
+	}
 
 	public CarreraEstudiante(CarreraEstudiantePk id, Estudiante estudiante, Carrera carrera, LocalDate fechaIngreso, LocalDate fechaEgreso) {
 		super();
-		this.id = new CarreraEstudiantePk(carrera.getId(), estudiante.getDocumento());
+		this.id = id;
 		this.estudiante = estudiante;
 		this.carrera = carrera;
 		this.fechaIngreso = fechaIngreso;

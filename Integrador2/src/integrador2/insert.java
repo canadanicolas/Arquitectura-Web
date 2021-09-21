@@ -40,13 +40,4 @@ public class insert {
 		emf.close();
 	}
 
-	/*public static void insertCarreraEstudiante(Estudiante e, Carrera c, EntityManager em) {
-		CarreraEstudiantePk cepk = new CarreraEstudiantePk(e.getDocumento(), c.getId());
-		System.out.println(cepk.getEstudianteId()+"-"+cepk.getCarreraId());
-		CarreraEstudiante ce = new CarreraEstudiante(cepk, e, c, LocalDate.now(), LocalDate.of(2023, 5, 7));
-		System.out.println(ce.getEstudiante().getDocumento()+"-"+ce.getCarrera().getId()+"-"+ce.getFechaIngreso()+"-"+ce.getFechaEgreso());
-		em.persist(ce);
-
-	}*/
-
 }
