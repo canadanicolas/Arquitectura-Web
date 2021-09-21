@@ -22,6 +22,10 @@ public class Carrera {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante") 
 	List <CarreraEstudiante> estudiantes;
 	
+	public Carrera() {
+		
+	}
+	
 	public Carrera(String nombre) {
 		super();
 		this.nombre = nombre;

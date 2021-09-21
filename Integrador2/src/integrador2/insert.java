@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class insert {
+public class Insert {
 
 	public static void main(String[] args) {
 		
@@ -20,22 +20,31 @@ public class insert {
 		Carrera c1 = new Carrera("Tudai");
 		Carrera c2 = new Carrera("Tupar");
 		
-		em.persist(e1);
-		em.persist(e2);
+		altaEstudiante(e1, em);
+		altaEstudiante(e2, em);
 		
-		em.persist(c1);
-		em.persist(c2);
+		altaCarrera(c1, em);
+		altaCarrera(c2, em);
 		
-		insertCarreraEstudiante(e1, c1, em);
-		insertCarreraEstudiante(e1, c2, em);
-		insertCarreraEstudiante(e2, c2, em);
+		matricularEstudiante(e1, c1, em);
+		matricularEstudiante(e1, c2, em);
+		matricularEstudiante(e2, c2, em);
 		
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
 	}
 	
-	public static void insertCarreraEstudiante(Estudiante e, Carrera c, EntityManager em) {
+	//2.a)
+	public static void altaEstudiante(Estudiante e, EntityManager em) {
+		em.persist(e);
+	}
+	
+	public static void altaCarrera(Carrera c, EntityManager em) {
+		em.persist(c);
+	}
+	//2.b)
+	public static void matricularEstudiante(Estudiante e, Carrera c, EntityManager em) {
 		CarreraEstudiante ce = new CarreraEstudiante(e, c, LocalDate.now(), null);
 		em.persist(ce);
 	}

@@ -30,6 +30,10 @@ public class CarreraEstudiante {
 	
 	@Column(nullable = true)
 	LocalDate fechaEgreso;
+	
+	public CarreraEstudiante() {
+		
+	}
 
 	public CarreraEstudiante(Estudiante estudiante, Carrera carrera, LocalDate fechaIngreso, LocalDate fechaEgreso) {
 		super();
