@@ -17,14 +17,8 @@ public class insert {
 		Estudiante e1 = new Estudiante (39435576, "Nicolas", "Cañada", 25, "masculino", "Necochea", 1);
 		Estudiante e2 = new Estudiante (123456789, "Jose", "Perez", 75, "masculino", "Napoleofu", 2);
 		
-		Carrera c1 = new Carrera(4, "Tudai");
-		Carrera c2 = new Carrera(5, "Tupar");
-		
-		CarreraEstudiantePk cepk1 = new CarreraEstudiantePk(e1.getDocumento(), c1.getId());
-		CarreraEstudiantePk cepk2 = new CarreraEstudiantePk(e2.getDocumento(), c2.getId());
-		
-		CarreraEstudiante ce1 = new CarreraEstudiante(cepk1, e1, c1, LocalDate.now(), LocalDate.of(2023, 5, 7));
-		CarreraEstudiante ce2 = new CarreraEstudiante(cepk2, e2, c2, LocalDate.now(), LocalDate.of(2023, 5, 7));
+		Carrera c1 = new Carrera("Tudai");
+		Carrera c2 = new Carrera("Tupar");
 		
 		em.persist(e1);
 		em.persist(e2);
@@ -32,12 +26,18 @@ public class insert {
 		em.persist(c1);
 		em.persist(c2);
 		
-		em.persist(ce1);
-		em.persist(ce2);
+		insertCarreraEstudiante(e1, c1, em);
+		insertCarreraEstudiante(e1, c2, em);
+		insertCarreraEstudiante(e2, c2, em);
 		
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
+	}
+	
+	public static void insertCarreraEstudiante(Estudiante e, Carrera c, EntityManager em) {
+		CarreraEstudiante ce = new CarreraEstudiante(e, c, LocalDate.now(), null);
+		em.persist(ce);
 	}
 
 }

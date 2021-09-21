@@ -14,10 +14,6 @@ public class CarreraEstudiantePk implements Serializable{
 
     @Column(name = "carreraId")
     int carreraId;
-
-    public CarreraEstudiantePk() {
-    	
-    }
     
 	public CarreraEstudiantePk(int estudianteId, int carreraId) {
 		super();

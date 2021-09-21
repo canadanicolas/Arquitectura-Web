@@ -6,13 +6,14 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Carrera {
 	
-	@Id //@GeneratedValue (strategy = GenerationType.AUTO)
+	@Id @GeneratedValue
 	int id;
 	
 	@Column(nullable = false)
@@ -21,9 +22,8 @@ public class Carrera {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "estudiante") 
 	List <CarreraEstudiante> estudiantes;
 	
-	public Carrera(int id, String nombre) {
+	public Carrera(String nombre) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.estudiantes = new ArrayList<>();
 	}
