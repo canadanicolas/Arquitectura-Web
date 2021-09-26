@@ -28,7 +28,7 @@ public class DAOProducto {
 		String insert = "INSERT INTO producto (idProducto, nombre, valor) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		CSVParser parser;
-		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\productos.csv"));
+		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("//productos.csv"));
 		for (CSVRecord row : parser) {
 			ps.setInt(1, Integer.parseInt(row.get("idProducto")));
 			ps.setString(2, row.get("nombre"));

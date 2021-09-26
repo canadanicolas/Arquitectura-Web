@@ -17,7 +17,7 @@ public class Select {
 		recuperarEstudiantePorLibreta(1, em);
 		recuperarEstudiantePorGenero("masculino", em);
 		recuperarCarrerasConEstudiantesPorCantidad(em);
-		
+		recuperarEstudiantesPorCarreraPorCiudad("TUDAI", "tandil", em);
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
@@ -50,9 +50,19 @@ public class Select {
 	//2.f)
 	private static void recuperarCarrerasConEstudiantesPorCantidad(EntityManager em) {
 		@SuppressWarnings("unchecked")
-		List <Carrera> carreras = em.createQuery("Aca va la consulta").getResultList();
+		List <Carrera> carreras = em.createQuery("SELECT c, COUNT(ce.estudianteId) FROM Carrera c NATURAL JOIN CarreraEstudiante ce+"
+				+ "WHERE cd.estudianteID <> NULL ORDER BY COUNT(ce.estudianteId) DESC ").getResultList();
 		System.out.println("Lista de carreras con estudiantes: ");
 		carreras.forEach(e-> System.out.println(e));
 	}
+	//2.g)
+	private static void recuperarEstudiantesPorCarreraPorCiudad(String carrera, String ciudad, EntityManager em) {
+		@SuppressWarnings("unchecked")
+		List <Estudiante> estudiantes = em.createQuery("SELECT e FROM Estudiante e NATURAL JOIN CarreraEstudiante ce NATURAL JOIN carrera c+"
+				+ "WHERE e.ciudadResidencia= '"+ ciudad+"' AND c.nombre='"+carrera+"'  ORDER BY e.apellido ASC").getResultList();
+		System.out.println("Lista de todos los estudiantes:");
+		estudiantes.forEach(e-> System.out.println(e));
+	}
+	//3
 
 }
