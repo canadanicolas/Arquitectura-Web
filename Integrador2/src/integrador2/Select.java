@@ -18,7 +18,7 @@ public class Select {
 		recuperarEstudiantePorGenero("masculino", em);
 		//recuperarCarrerasConEstudiantesPorCantidad(em);
 		//recuperarEstudiantesPorCarreraPorCiudad("Tudai", "Necochea", em);
-		informeCarrera(em);
+		//informeCarrera(em);
 		em.getTransaction().commit();
 		em.close();
 		emf.close();
@@ -35,7 +35,7 @@ public class Select {
 	
 	//2.d)
 	private static void recuperarEstudiantePorLibreta(int numLibreta, EntityManager em) {
-		Estudiante estudiante = (Estudiante) em.createQuery("SELECT e FROM Estudiante e WHERE numeroLibreta ='"+numLibreta+"'").getResultList().get(0);
+		Estudiante estudiante = (Estudiante) em.createQuery("SELECT e FROM Estudiante e WHERE numeroLibreta = :num").setParameter("num", numLibreta).getResultList().get(0);
 		System.out.println("Estudiante con el numero de libreta: " + numLibreta);
 		System.out.println(estudiante);
 	}
@@ -43,7 +43,7 @@ public class Select {
 	//2.e)
 	private static void recuperarEstudiantePorGenero(String genero, EntityManager em) {
 		@SuppressWarnings("unchecked")
-		List <Estudiante> estudiantes = em.createQuery("SELECT e FROM Estudiante e WHERE genero ='"+genero +"'").getResultList();
+		List <Estudiante> estudiantes = em.createQuery("SELECT e FROM Estudiante e WHERE genero =:gen").setParameter("gen", genero).getResultList();
 		System.out.println("Lista de estudiantes con el genero: " + genero);
 		estudiantes.forEach(e-> System.out.println(e));
 	}
@@ -65,7 +65,7 @@ public class Select {
 		List <Estudiante> estudiantes = em.createQuery("SELECT e " 
 				+ "FROM Estudiante e JOIN CarreraEstudiante ce ON e.documento = ce.estudiante "
 				+ "JOIN Carrera c ON ce.carrera = c.id "
-				+ "WHERE c.nombre='"+carrera+"' AND e.ciudadResidencia = '"+ciudad+"'").getResultList();
+				+ "WHERE c.nombre = :carr AND e.ciudadResidencia = :ciud").setParameter("carr", carrera).setParameter("ciud", ciudad).getResultList();
 		System.out.println("Estudiantes de la carrera "+carrera+" que reciden en la ciudad de "+ciudad+":");
 		estudiantes.forEach(e-> System.out.println(e));
 	}
