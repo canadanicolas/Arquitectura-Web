@@ -7,9 +7,9 @@
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		
 		<!-- Clases a utilizar -->
-		<class>integrador2.Estudiante</class>
-		<class>integrador2.Carrera</class>
-		<class>integrador2.CarreraEstudiante</class>
+		<class>entidades.Estudiante</class>
+		<class>entidades.Carrera</class>
+		<class>entidades.CarreraEstudiante</class>
 		
 		<properties>
 			

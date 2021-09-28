@@ -24,7 +24,7 @@ public class CarreraRepository {
 	//2.f)
 	private static void recuperarCarrerasConEstudiantesPorCantidad(EntityManager em) {
 		@SuppressWarnings("unchecked")
-		List <Carrera> carreras = em.createQuery("SELECT c " //Como hacer un count(*) para mostrar cant estudiantes en una carrera
+		List <Carrera> carreras = em.createQuery("SELECT c "
 				+ "FROM Carrera c JOIN CarreraEstudiante ce ON c.id = ce.carrera "
 				+ "GROUP BY c.id "
 				+ "ORDER BY COUNT(*) DESC").getResultList();
