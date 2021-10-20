@@ -18,23 +18,19 @@ public class DAOFacturaProducto {
 		super();
 	}
 
-	/*
-	 * Agrega los datos de las diferentes relaciones entre facturas y productos a la tabla facturaProducto en la bbdd, 
-	 * trae los datos desde un archivo .csv cuya ruta DEBE SER SETEADA ANTES DE COMENZAR
-	 */
 	protected static void addFacturaProducto(Connection conn) throws SQLException, FileNotFoundException, IOException {
 		String insert = "INSERT INTO facturaProducto (cantidad, idProducto, idFactura) VALUES(?,?,?)";
 		PreparedStatement ps = conn.prepareStatement(insert);
 		CSVParser parser;
-		parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("//facturas-productos.csv"));
-		for (CSVRecord row : parser) {
-			ps.setInt(1, Integer.parseInt(row.get("cantidad")));
-			ps.setInt(2, Integer.parseInt(row.get("idProducto")));
-			ps.setInt(3, Integer.parseInt(row.get("idFactura")));
-			ps.executeUpdate();
-		}
+			parser = CSVFormat.DEFAULT.withHeader().parse(new FileReader("C:\\facturas-productos.csv"));
+			for (CSVRecord row : parser) {
+				ps.setInt(1, Integer.parseInt(row.get("cantidad")));
+				ps.setInt(2, Integer.parseInt(row.get("idProducto")));
+				ps.setInt(3, Integer.parseInt(row.get("idFactura")));
+				ps.executeUpdate();
+			}
 		ps.close();
 		conn.commit();
 	}
-
+	
 }

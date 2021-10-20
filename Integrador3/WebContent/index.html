@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración</title>
+        <style>
+        html{
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            color:white;
+            background-color: gray;  
+        }
+        body{
+            align-items:center;
+        }
+        h1{
+           text-align: center;
+        }
+        form{
+            color:white;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+           margin-left: 10%;
+           margin-right: 10%;
+            padding: 1%;
+            text-align: center;
+            align-items:center;
+            background-color: rgba(95, 146, 75, 0.945);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Administración de estudiantes</h1>
+    <form style= "border-top: 1px solid black;">
+        <h2>Ingresar nuevo estudiante:</h2>
+        <input type="text" placeholder="nombre" id="idNombreInsert">
+        <input type="text" placeholder="apellido" id="idApellidoInsert">
+        <input type="text" placeholder="ciudad_residencia" id="idCiudadInsert">
+        <input type="number" placeholder="dni" id="idDniInsert">
+        <input type="number" placeholder="edad" id="idEdadInsert">
+        <input type="text" placeholder="genero" id="idGeneroInsert">
+        <input type="number" placeholder="numero_libreta" id="idLibretaInsert">
+        <input type="submit" id="submitPostEstudiante" value="submit">
+    </form>
+    <form action="Integrador3/entregable/matricular" method="POST">
+        <h2>Matricular estudiante a carrera:</h2>
+        <input type="number" placeholder="id estudiante" id="idEstudianteMatricula">
+        <input type="number" placeholder="id carrera" id="idCarreraMatricula">
+        <input type="date" id="idIngresoMatricula">
+        <input type="date" id="idEgresoMatricula">
+        <input type="submit" value="submit">
+    </form>
+    <form action="" method="GET">
+        <h2>Buscar estudiante por libreta:</h2>
+        <input type="number" placeholder="libreta">
+        <input type="submit" value="submit">
+    </form>
+
+    <form action="http://localhost:8080/Integrador3/entregable/estudiante/recuperarEstudiantes" method="GET">
+        <h2>Buscar estudiantes:</h2>
+        <input type="number" placeholder="libreta" id="as">
+        <input type="submit" value="submit" id="getEstudiantes">
+    </form>
+    <form action="" method="GET">
+        <h2>Buscar estudiantes por genero:</h2>
+        <input type="text" placeholder="genero" id="valueGenero" style=>
+        <input type="submit" value="submit" id="submitGenero">
+
+    </form>
+    <form action="Integrador3/entregable/estudiante/" method="GET" style= "border-bottom: 1px solid black;">
+        <h2>Buscar estudiante por carrera y ciudad residencia</h2>
+        <input type="text" placeholder="carrera" id="idCarrera">
+        <input type="text" placeholder="ciudad" id="idCiudad">
+        <input type="submit" value="submit" id="submitCarreraCiudad">
+    </form>
+</body>
+<script src="main.js" charset="utf-8"></script>
+</html>
