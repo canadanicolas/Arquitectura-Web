@@ -1,0 +1,255 @@
+openapi: 3.0.0
+info: 
+        version: 1.0.0 
+        title: DespensaOnline API
+        description: API de despensa online
+
+        servers: - url: https://www.despensaonline.com.ar/api 
+# Basic authentication 
+components: 
+        securitySchemes: 
+            BasicAuth: 
+            type: http 
+            scheme: basic 
+        security: - BasicAuth: [] 
+paths: 
+        /add: 
+        post: 
+            description: agregar cliente 
+            requestBody: 
+            		required: true 
+           		content: 
+                		application/json 
+                		schema: 
+                    			type: object 
+                            			required: 
+                                			- id
+                                			- nombre
+                               			 	- compras
+                		properties: 
+                        		id: 
+                            			type: long 
+                        		nombre:
+                            			type:  string 
+                        		compras:
+                            			type: array
+                        		items: 
+                            			type: object 
+        responses: 
+		'400':
+             	description: No se agrego cliente.
+                content: 
+                     	application/json: 
+                     	schema: 
+                         	type: object 
+                                 	properties:
+                                     		rta:
+                                         		type:string
+                                     		mensaje: 
+                                         		type: string
+            	'200': 
+                description: Se pudo agregar cliente.
+                content: 
+                    	application/json: 
+                    	schema: 
+                        	type: object 
+                                	properties:
+                                    		rta: 
+                                        		type: string      
+                                  
+	/getAll:
+  	get:
+    		description: trae todos los clientes
+    		requestBody:
+        		required: true
+         		content:
+          			application/json:
+            			schema:
+                			type: object 
+                        			required:
+                            				- id
+                            				- nombre
+                            				- compras
+                        	properties: 
+                            		id:
+                                		type: long
+                            		nombre:
+                                		type: string
+                            		compras: 
+                                		type: array                         
+    	responses:
+      		'400':
+        	description: No se cargo los clientes
+        	content:
+          		application/json:
+            			schema:
+              				type: array
+              				items: 
+                 			 	type: object
+                      			properties:
+                          			mensaje:
+                              				type: string
+      		'200':
+        	description: Se pudo cargar los clientes
+        	content:
+             		application/json:
+            			schema:
+                			type: object 
+                        		properties: 
+                            			id:
+                                			type: long
+                            			nombre:
+                                			type: string
+                            			compras: 
+                               		 		type: array   
+
+	/delete/{id}:
+	delete:
+		parameters:
+    			- in: path
+      			name: id
+      			required: true
+      		schema:
+        		type: integer
+    		summary: Delete by id
+    	responses:
+     	 	'204':
+        	description: Deleted
+      		'404':
+       		 description: id not found
+     		 '401':
+        	description: Unauthorized
+
+	/comprar/{idCompra}/{idCliente}: 
+        post: 
+            description: agrega compra por id de compra y id cliente 
+            requestBody: 
+            	required: true 
+		content: 
+                	application/json 
+                	schema: 
+                   		type: object 
+                            	required: 
+                                	- id
+                                	- nombre
+                                	- compras
+                	properties: 
+                        	id: 
+                            		type: long 
+                        	nombre:
+                            		type:  string 
+                        	compras:
+                            		type: array
+                        	items: 
+                            		type: object 
+        responses: 
+            	'400':
+		description: No se agrego cliente.
+                content: 
+                	application/json: 
+                     	schema: 
+                         	type: object 
+                                properties:
+                                	rta:
+                                         	type:string
+                                     	mensaje: 
+                                         	type: string
+            	'200': 
+                description: Se pudo agregar cliente.
+                content: 
+			application/json: 
+                    	schema: 
+                        	type: object 
+                                properties:
+                                    rta: 
+                                        type: string
+
+	/reporteCompras:
+  	get:
+    		description:  traer compras de un cliente
+    		requestBody:
+        		required: true
+         		content:
+          			application/json:
+            			schema:
+                			type: object 
+                        			required:
+                            				- compras
+                        	properties: 
+                            		compras:
+                                		type: array
+                            		item: 
+                                		type: object                         
+    	responses:
+      		'400':
+        	description: No se cargo compras de cliente
+        	content:
+          		application/json:
+            		schema:
+              				type: array
+              				items: 
+                 				type: object
+                      				properties:
+                          				mensaje:
+                              					type: string
+      		'200':
+        	description: Se pudo cargar los compras del cliente
+        	content:
+             		application/json:
+            		schema:
+                		type: object 
+                       			properties: 
+                                		compras: 
+                                type: array   
+                               mensaje:
+		    type : string
+
+	/update/{id}:
+	put: 
+		description: editar cliente por id
+		requestBody: 
+			required: true 
+			content: 
+				application/json 
+				schema: 
+					type: object 
+						required: 
+							- id
+						properties: 
+							id: 
+								type: long
+							nombre: 
+								type: string
+							compras: 
+								type: array
+							item:
+								type: object
+	responses: 
+		'200': 
+		description: Consulta exitosa
+		content: 
+			application/json: 
+				schema: 
+					type: array
+					items: 
+						type: object 
+						properties: 
+							rta: 
+								type: string 
+							mensaje:
+								type: string
+
+		'400': 
+		description: Consulta inválida 
+		content: 
+			application/json: 
+				schema: 
+					type: object 
+					properties:
+						rta:
+  	  						type: string 
+						mensaje: 
+							type: string
+		
+
+

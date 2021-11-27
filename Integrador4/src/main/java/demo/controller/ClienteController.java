@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,13 +22,17 @@ import demo.model.Cliente;
 import demo.model.Compra;
 import demo.model.Producto;
 import demo.model.ReporteGastosCliente;
-import demo.model.Stock;
 import demo.repository.ClienteRepository;
 
 @RestController
 @RequestMapping("cliente")
 
-//Clase que administra los servicios rest de Cliente.
+/**
+ * Clase que administra los servicios rest de Cliente.
+ * 
+ * @version 10.8
+ * 
+ */
 public class ClienteController {
 	@Qualifier("clienteRepository")
 	@Autowired
@@ -39,20 +42,36 @@ public class ClienteController {
 	public ClienteController(@Qualifier("clienteRepository") ClienteRepository repository) {
 		this.repository = repository;
 	}
-
-	// Hace un get de todos los clientes.
+	
+	/**
+	 * <p> Realiza un get de todos los clientes. </p>
+	 * @return Un iterable con todos los clientes.
+	 * @see ClienteRepository
+	 */ 
 	@GetMapping("/getAll")
 	public Iterable<Cliente> getClientes() {
 		return repository.findAll();
 	}
-
-	// Agrega un cliente
+	
+	/**
+	 * <p>Agrega un  nuevo cliente </p>
+	 * @param c es el Cliente que se agregara nuevo.
+	 * @return el cliente agregado.
+	 * @see ClienteRepository Cliente
+	 */
 	@PostMapping("/add")
 	public Cliente newCliente(@RequestBody Cliente c) {
 		return repository.save(c);
 	}
-
-	// Edita el cliente con el id que se pasa por parametro
+	
+	
+	/**
+	 * <p>Edita el cliente con el id que se pasa por parametro</p>
+	 * @param c es el Cliente con la informacion para editar. 
+	 * @param id es el id del Cliente que se quiere editar. 
+	 * @return el cliente editado, ya sea el del id o el que ya venia editado seteandole su id.
+	 * @see Long ClienteRepository Cliente 
+	 */
 	@PutMapping("/update/{id}")
 	public Cliente updateCliente(@RequestBody Cliente c, @PathVariable Long id) {
 		return repository.findById(id).map(cliente -> {
@@ -64,13 +83,21 @@ public class ClienteController {
 		});
 	}
 
-	// Borra el cliente con el id que se pasa por parametro
+	/**
+	 * <p> Borra el cliente con el id que se pasa por parametro</p>
+	 * @param id es el id del Cliente que se quiere borrar.
+	 * @see Long ClienteRepository 
+	 */
 	@DeleteMapping("/delete/{id}")
 	void deleteCliente(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 
-	// Hace un get de las compras del cliente
+	/**
+	 * <p> Hace un get de las compras del cliente</p>
+	 * @return Una lista con las compras del cliente.
+	 * @see ClienteRepository ReporteGastosCliente Cliente
+	 */
 	@GetMapping("/reporteCompras")
 	public List<ReporteGastosCliente> getReporteCompras() {
 		List<ReporteGastosCliente> reportes = new ArrayList<>();
@@ -85,7 +112,14 @@ public class ClienteController {
 		return reportes;
 	}
 
-	//Agrega una compra con el id = idCompra al cliente con la id = idCliente
+	/**
+	 * <p>Agrega una compra con el id = idCompra al cliente con la id = idCliente</p>
+	 * @param c es el Cliente con la informacion para editar. 
+	 * @param id es el id del Cliente que se quiere editar. 
+	 * @return el cliente editado, ya sea el del id o el que ya venia editado seteandole su id.
+	 * @see Long ClienteRepository Cliente
+	 */
+	@SuppressWarnings("rawtypes")
 	@PostMapping("/comprar/{idCompra}/{idCliente}")
 	public ResponseEntity compraCliente(@PathVariable Long idCompra, @PathVariable Long idCliente) {
 

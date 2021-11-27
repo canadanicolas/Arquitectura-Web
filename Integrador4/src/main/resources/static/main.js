@@ -1,32 +1,97 @@
 "use strict";
+document.addEventListener("DOMContentLoaded", function () {
 
+	let btn2 = document.getElementById("stock");
+	btn2.addEventListener("click", async () => {
+		document.getElementById("inicioPag").innerHTML = "Cargando...";
+
+		try {
+			let response = await fetch("stock.html");
+			console.log(response);
+			if (response.ok) {
+				let html = await response.text();
+				let div = document.getElementById("inicioPag");
+				div.innerHTML = html;
+				document.querySelector("#addStock").addEventListener("click", postStock);
+				document.querySelector("#EditStock").addEventListener("click", putStock);
+				document.querySelector("#deleteStock").addEventListener("click", deleteStock);
+
+			}
+
+		} catch (error) {
+			document.getElementById("inicioPag").innerHTML = "error";
+		}
+	});
+	let btn3 = document.getElementById("compra");
+	btn3.addEventListener("click", async () => {
+		document.getElementById("inicioPag").innerHTML = "Cargando...";
+
+		try {
+			let response = await fetch("compra.html");
+			console.log(response);
+			if (response.ok) {
+				let html = await response.text();
+				let div = document.getElementById("inicioPag");
+				div.innerHTML = html;
+				document.querySelector("#addCompra").addEventListener("click", postCompra);
+				document.querySelector("#editCompra").addEventListener("click", putCompra);
+				document.querySelector("#deleteCompra").addEventListener("click", deleteCompra);
+				document.querySelector("#addProductoComprar").addEventListener("click", agregarProductoACompra);
+				document.querySelector("#finalizarProductoComprar").addEventListener("click", finalizarProductoComprar);
+
+			}
+
+		} catch (error) {
+			document.getElementById("inicioPag").innerHTML = "error";
+		}
+	});
+	let btn4 = document.getElementById("reportes");
+	btn4.addEventListener("click", async () => {
+		document.getElementById("inicioPag").innerHTML = "Cargando...";
+
+		try {
+			let response = await fetch("reportes.html");
+			console.log(response);
+			if (response.ok) {
+				let html = await response.text();
+				let div = document.getElementById("inicioPag");
+				div.innerHTML = html;
+				document.querySelector("#getClientes").addEventListener("click", getClientes);
+				document.querySelector("#getComprasXDia").addEventListener("click", getComprasXDia);
+
+				document.querySelector("#getProductoMasVendido").addEventListener("click", getProductoMasVendido);
+
+				document.querySelector("#verProductos").addEventListener("click", verProductos);
+
+			}
+
+		} catch (error) {
+			document.getElementById("inicioPag").innerHTML = "error";
+		}
+	});
+	let btn5 = document.getElementById("cliente");
+	btn5.addEventListener("click", async () => {
+		document.getElementById("inicioPag").innerHTML = "Cargando...";
+
+		try {
+			let response = await fetch("cliente.html");
+			console.log(response);
+			if (response.ok) {
+				let html = await response.text();
+				let div = document.getElementById("inicioPag");
+				div.innerHTML = html;
+				document.querySelector("#addCliente").addEventListener("click", postCliente);
+				document.querySelector("#editCliente").addEventListener("click", putCliente);
+				document.querySelector("#deleteCliente").addEventListener("click", deleteCliente);
+
+			}
+
+		} catch (error) {
+			document.getElementById("inicioPag").innerHTML = "error";
+		}
+	});
+})
 /*---------------------------------------------- EVENT LISTENERS ----------------------------------------------*/
-
-document.querySelector("#submitPostProducto").addEventListener("click", postProducto);
-document.querySelector("#submitPutProducto").addEventListener("click", putProducto);
-document.querySelector("#deleteProducto").addEventListener("click", deleteProducto);
-
-document.querySelector("#addCliente").addEventListener("click", postCliente);
-document.querySelector("#editCliente").addEventListener("click", putCliente);
-document.querySelector("#deleteCliente").addEventListener("click", deleteCliente);
-
-document.querySelector("#addCompra").addEventListener("click", postCompra);
-document.querySelector("#editCompra").addEventListener("click", putCompra);
-document.querySelector("#deleteCompra").addEventListener("click", deleteCompra);
-
-document.querySelector("#addStock").addEventListener("click", postStock);
-document.querySelector("#EditStock").addEventListener("click", putStock);
-document.querySelector("#deleteStock").addEventListener("click", deleteStock);
-
-document.querySelector("#getClientes").addEventListener("click", getClientes);
-document.querySelector("#getComprasXDia").addEventListener("click", getComprasXDia);
-
-document.querySelector("#getProductoMasVendido").addEventListener("click", getProductoMasVendido);
-
-document.querySelector("#verProductos").addEventListener("click", verProductos);
-
-document.querySelector("#addProductoComprar").addEventListener("click", agregarProductoACompra);
-document.querySelector("#finalizarProductoComprar").addEventListener("click", finalizarProductoComprar);
 
 let idProducto = [];
 
@@ -70,16 +135,16 @@ function putProducto() {
 		"method": "PUT",
 		"headers": { "Content-Type": "application/json" },
 		"body": JSON.stringify(producto)
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -90,16 +155,16 @@ function deleteProducto() {
 	fetch(url, {
 		"method": "DELETE",
 		"headers": { "Content-Type": "application/json" },
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -136,16 +201,16 @@ function putCliente() {
 		"method": "PUT",
 		"headers": { "Content-Type": "application/json" },
 		"body": JSON.stringify(cliente)
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -155,16 +220,16 @@ function deleteCliente() {
 	let url = "cliente/delete/" + id;
 	fetch(url, {
 		"method": "DELETE",
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -202,16 +267,16 @@ function putCompra() {
 		"method": "PUT",
 		"headers": { "Content-Type": "application/json" },
 		"body": JSON.stringify(compra)
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -222,16 +287,16 @@ function deleteCompra() {
 	console.log(url);
 	fetch(url, {
 		"method": "DELETE",
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -269,16 +334,16 @@ function putStock() {
 		"method": "PUT",
 		"headers": { "Content-Type": "application/json" },
 		"body": JSON.stringify(stock)
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -289,16 +354,16 @@ function deleteStock() {
 	console.log(url);
 	fetch(url, {
 		"method": "DELETE",
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
@@ -306,6 +371,7 @@ function deleteStock() {
 /*---------------------------------------------- OTROS ----------------------------------------------*/
 
 async function getClientes() {
+	document.querySelector("#contenedorClientes").innerHTML ="";
 	let url = "cliente/reporteCompras";
 	let r = await fetch(url, {
 		'method': 'GET',
@@ -314,10 +380,13 @@ async function getClientes() {
 	let json = await r.json();
 	console.log(json);
 	let contenedor = document.querySelector("#contenedorClientes");
-	contenedor.innerHTML = JSON.stringify(json);
+	json.forEach(element => {
+	contenedor.innerHTML +="-Cliente:"+element.cliente.nombre+"\t-"+ "Gastos:"+element.gastos+"<br>";
+});
 }
 
 async function getComprasXDia() {
+	document.querySelector("#contenedorCompras").innerHTML ="";
 	let url = "compra/reporteComprasPorDia";
 	let r = await fetch(url, {
 		'method': 'GET',
@@ -326,7 +395,9 @@ async function getComprasXDia() {
 	let json = await r.json();
 	console.log(json);
 	let contenedor = document.querySelector("#contenedorCompras");
-	contenedor.innerHTML = JSON.stringify(json);
+	json.forEach(element => {
+		contenedor.innerHTML +="-Id Compra:"+element.compra[0].id+"\t-"+"Fecha de compra:"+element.compra[0].fechaDeCompra+"<br>";
+	});
 }
 
 function comprar() {
@@ -336,21 +407,22 @@ function comprar() {
 	botoncrearcomentario.forEach();
 	fetch(url, {
 		"method": "DELETE",
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 }
 
 async function getProductoMasVendido() {
+	document.querySelector("#contenedorProducto").innerHTML ="";
 	let url = "producto/masVendido";
 	let r = await fetch(url, {
 		'method': 'GET',
@@ -359,10 +431,11 @@ async function getProductoMasVendido() {
 	let json = await r.json();
 	console.log(json);
 	let contenedor = document.querySelector("#contenedorProducto");
-	contenedor.innerHTML = JSON.stringify(json);
+	contenedor.innerHTML = "-Id:"+json.id + "\t-"+"Nombre:"+json.nombre+"\t-"+"Precio:"+json.precio; 
 }
 
 async function verProductos() {
+	document.querySelector("#contenedorTodosProductos").innerHTML="";
 	let url = "producto/getAll";
 	let r = await fetch(url, {
 		'method': 'GET',
@@ -371,24 +444,14 @@ async function verProductos() {
 	let json = await r.json();
 	console.log(json);
 	let contenedor = document.querySelector("#contenedorTodosProductos");
-	contenedor.innerHTML = JSON.stringify(json);
+	json.forEach(element => {
+		contenedor.innerHTML +="-Id:"+element.id + "\t-"+"Nombre:"+element.nombre+"\t-"+"Precio:"+element.precio+"<br>";
+	});
 }
 
 function addProductoComprar() {
 	let id = document.querySelector("#idProductoComprar");
 	idProducto.push(id);
-}
-
-async function getProductoMasVendido() {
-	let url = "producto/masVendido";
-	let r = await fetch(url, {
-		'method': 'GET',
-		'mode': 'cors'
-	});
-	let json = await r.json();
-	console.log(json);
-	let contenedor = document.querySelector("#contenedorProducto");
-	contenedor.innerHTML = JSON.stringify(json);
 }
 
 async function finalizarProductoComprar() {
@@ -409,16 +472,16 @@ async function finalizarProductoComprar() {
 			'Content-Type': 'application/json',
 			'Accept': 'application/json'
 		},
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 
@@ -435,16 +498,16 @@ async function agregarProductoACompra() {
 			'Content-Type': 'application/json',
 			'Accept': 'application/json'
 		}
-	}).then(function(r) {
+	}).then(function (r) {
 		if (!r.ok) {
 			console.log("Error")
 		}
 		return r.json()
 	})
-		.then(function(json) {
+		.then(function (json) {
 			console.log("ok");
 		})
-		.catch(function(e) {
+		.catch(function (e) {
 			console.log(e)
 		})
 

@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,18 +15,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import demo.model.Cliente;
 import demo.model.Compra;
 import demo.model.Producto;
-import demo.model.ReporteGastosCliente;
 import demo.model.ReporteVentasPorDia;
-import demo.model.Stock;
 import demo.repository.CompraRepository;
 
 @RestController
 @RequestMapping("compra")
 
-// Clase que administra los sistemas rest de Compra
+/**
+ * Clase que administra los sistemas rest de Compra.
+ */
 public class CompraController {
 	@Qualifier("compraRepository")
 	@Autowired
@@ -42,13 +37,23 @@ public class CompraController {
 		this.repository = repository;
 	}
 
-	// Hace un get de todos las compras.
+	/**
+	 * <p>Hace un get de todos las compras.</p>
+	 * @return  Un iterable con todas las compras.
+	 * @see CompraRepository
+	 */
 	@GetMapping("/getAll")
 	public Iterable<Compra> getCompras() {
 		return repository.findAll();
 	}
 
-	// Agrega una compra
+	/**
+	 * <p>Agrega una compra</p>
+	 * @param c es la Compra hecha
+	 * @param id es el id de la compra
+	 * @return La compra recien hecha
+	 * @see Long CompraRepository Compra
+	 */
 	@PostMapping("/")
 	public Compra Comprar(@RequestBody Compra c, @PathVariable Long id) {
 		List<Compra> compras = repository.cantidadDeCompras(c.getFechaDeCompra(),id);
@@ -58,12 +63,19 @@ public class CompraController {
 		return repository.save(c);
 	}
 	
+	
 	@PostMapping("/add")
 	public Compra addCompra(@RequestBody Compra c) {
 		return repository.save(c);
 	}
 
-	// Edita la compra con el id que se pasa por parametro
+	/**
+	 * <p>Edita la compra con el id que se pasa por parametro</p>
+	 * @param c es la compra con la informacion para editar. 
+	 * @param id es el id de la compra que se quiere editar. 
+	 * @return la compra editada, ya sea la del id o la que ya venia editada seteandole su id.
+	 * @see Long CompraRepository Compra
+	 */
 	@PutMapping("/update/{id}")
 	public Compra updateCompra(@RequestBody Compra c, @PathVariable Long id) {
 		return repository.findById(id).map(compra -> {
@@ -75,6 +87,13 @@ public class CompraController {
 		});
 	}
 	
+	/*
+	 * <p>Edita la compra con el id que se pasa por parametro</p>
+	 * @param idCompra es el id de la compra.
+	 * @param idProducto es el id del producto que se quiere comprar. 
+	 * @return la compra editada, ya sea la del id o la que ya venia editada seteandole su id.
+	 * @see Long CompraRepository Compra Producto
+	 */
 	@PutMapping("/addProducto/{idCompra}/{idProducto}")
 	public Compra addProducto(@PathVariable Long idCompra, @PathVariable Long idProducto) {
 		Producto p = repository.getProducto(idProducto);
@@ -91,13 +110,21 @@ public class CompraController {
 
 	}
 
-	// Borra la compra con el id que se pasa por parametro
+	/**
+	 * <p>Borra la compra con el id que se pasa por parametro</p>
+	 * @param id es el id de la compra que se quiere borrar. 
+	* @see Long CompraRepository
+	 */
 	@DeleteMapping("/delete/{id}")
 	void deleteCompra(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
 
-	// Hace un get de los reportes de compras que se hacen por dia
+	/**
+	 * <p>Hace un get de los reportes de compras que se hacen por dia</p>
+	 * @return Una lista de las compras que se hacen por dia
+	 * @see CompraRepository Compra ReporteVentasPorDia
+	 */
 	@GetMapping("/reporteComprasPorDia")
 	public List<ReporteVentasPorDia> getComprasPorDia() {
 		boolean flag = false;
@@ -123,3 +150,4 @@ public class CompraController {
 	}
 
 }
+

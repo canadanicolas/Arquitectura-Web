@@ -3,164 +3,126 @@
 
 <head>
   <meta charset="utf-8">
-  <title>integrador 4</title>
-  	<style>
-  		h1{
-  			text-align: center;
-  		}
-  		
-        h2{
-           margin-left: 400px
-        }
-        
-        div{
-            display: flex;
-    	}
-    	
-    	input{
-    		margin: 15px;
-    		height: 30px;
-    	}
-    	
-    	button{
-    	    margin: 15px;
-    		height: 35px;
-    	}
-    </style>
+  <title>Supermercado Integrador 5</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body style="background-color:salmon; color: black" >
-  <h1>Integrador 4</h1>
-  
-  <h1>-------------------------------------------------------- Producto -------------------------------------------------------</h1>
-  <div>
-    <h2>2.a) Add producto</h2>
-    <input type="number" placeholder="id" id="idAddProducto"style= "display:list-item">
-    <input type="text" placeholder="nombre" id="idAddNombre"style= "display:list-item">
-    <input type="number" placeholder="precio" id="idAddPrecio"style= "display:list-item">
-    <button type="button" id="submitPostProducto" >Aceptar</button>
-  </div>
 
-  <div >
-    <h2>2.a) Edit producto</h2>
-    <input type="number" placeholder="id" id="idPutProducto"style= "display:list-item">
-    <input type="text" placeholder="nombre" id="idPutNombre"style= "display:list-item">
-    <input type="number" placeholder="precio" id="idPutPrecio"style= "display:list-item">
-    <button type="button" id="submitPutProducto" >Aceptar</button>
-  </div>
 
-  <div>
-    <h2>2.a) Delete producto</h2>
-    <input type="number" placeholder="id" id="idDeleteProducto"style= "display:list-item">
-    <button type="button" id="deleteProducto" >Aceptar</button>
-  </div>
-  
-  <h1>-------------------------------------------------------- Cliente -------------------------------------------------------</h1>
-
-  <div>
-    <h2>2.b) Add cliente</h2>
-    <input type="number" placeholder="id cliente" id= "idAddCliente"style= "display:list-item">
-    <input type="text" placeholder="nombre" id= "nombreAddCliente"style= "display:list-item" >
-    <button type="button" id="addCliente" >Aceptar</button>
-  </div>
-
-  <div>
-    <h2>2.b) Edit cliente</h2>
-    <input type="number" placeholder="id cliente" id= "idPutCliente"style= "display:list-item">
-    <input type="text" placeholder="nombre" id= "nombrePutCliente"style= "display:list-item" >
-    <button type="button" id="editCliente" >Aceptar</button>
-  </div>
-
-  <div>
-    <h2>2.b) Delete cliente</h2>
-    <input type="number" placeholder="id cliente" id= "idDeleteCliente"style= "display:list-item">
-    <button type="button" id="deleteCliente" >Aceptar</button>
-  </div>
-
-<h1>-------------------------------------------------------- Compra -------------------------------------------------------</h1>
-
-  <div>
-    <h2>2.c) Add compra</h2>
-    <input type="number" placeholder="id compra" id= "idAddCompra"style= "display:list-item">
-    <input type="date" placeholder="fecha" id= "fechaAddCompra"style= "display:list-item" >
-    <button type="button" id="addCompra">Aceptar</button>
-  </div>
-  
-  <div>
-    <h2>2.c) Edit compra</h2>
-    <input type="number" placeholder="id compra" id= "idPutCompra"style= "display:list-item">
-    <input type="date" placeholder="fecha" id= "fechaPutCompra"style= "display:list-item" >
-    <button type="button" id="editCompra">Aceptar</button>
-  </div>
-  
-  <div>
-    <h2>2.c) Delete compra</h2>
-    <input type="number" placeholder="id compra" id= "idDeleteCompra"style= "display:list-item">
-    <button type="button" id="deleteCompra">Aceptar</button>
-  </div>
-  
-  <div id="contenedorProductos">
-    <h2>Agregar compra de productos del cliente x</h2>
-    <input type="number" placeholder="id cliente" id= "idClienteComprar"style= "display:list-item">
-    <input type="number" placeholder="id compra" id= "idCompraComprar"style= "display:list-item">
-    <input type="number" placeholder="id Producto" id= "idProductoComprar"style= "display:list-item">
-    <button type="button" id="addProductoComprar">Agregar a la compra</button>
-    <button type="button" id="finalizarProductoComprar">Finalizar compra</button> 
-  </div>
-  
-  <h1>-------------------------------------------------------- Stock -------------------------------------------------------</h1>
-
-  <div>
-    <h2>2.d) Add stock</h2>
-    <input type="number" placeholder="id producto" id= "idAddStock"style= "display:list-item">
-    <input type="number" placeholder="cantidad" id= "idCantidadStock"style= "display:list-item" >
-    <button type="button" id="addStock">Aceptar</button>
-  </div>
-  
-  <div>
-    <h2>2.d) Edit stock</h2>
-    <input type="number" placeholder="id producto" id= "idEditStock"style= "display:list-item">
-    <input type="number" placeholder="cantidad" id= "idEditCantidad"style= "display:list-item" >
-    <button type="button" id="EditStock">Aceptar</button>
-  </div>
-  
-  <div>
-    <h2>2.d) Delete stock</h2>
-    <input type="number" placeholder="id producto" id= "idDeleteStock"style= "display:list-item">
-    <button type="button" id="deleteStock">Aceptar</button>
-  </div>
-  
-  <h1>-------------------------------------------------------- Reportes -------------------------------------------------------</h1>
-
-  <div>
-    <h2>3) Reporte de clientes y el monto de sus compras</h2>
-    <button type="button" id="getClientes" >Confirmar</button>
-    <div id="contenedorClientes">
+<body>
+  <header>
+    <h1>Supermercado "Integrador 5"</h1>
+  </header>
+  <nav>
+    <ul class="menu" id="menuid">
+      <li class="li-bar"><a href="index.html">Productos</a></li>
+      <li class="li-bar"><a id="stock">Stock</a></li>
+      <li class="li-bar"><a id="compra">Compra</a></li>
+      <li class="li-bar"><a id="reportes">Reportes</a></li>
+      <li class="li-bar"><a id="cliente">Clientes</a></li>
+    </ul>
+  </nav>
+  <section id="inicioPag">
+    <div>
+      <h2>Agregar un producto</h2>
+      <input type="number" placeholder="id" id="idAddProducto">
+      <input type="text" placeholder="nombre" id="idAddNombre">
+      <input type="number" placeholder="precio" id="idAddPrecio">
+      <button type="button" id="submitPostProducto">Aceptar</button>
     </div>
-  </div>
-  
-  <div>
-    <h2>4) Reporte de las ventas diarias</h2>
-    <button type="button" id="getComprasXDia" >Confirmar</button>
-    <div id="contenedorCompras">
-    </div>
-  </div>
 
-  <div>
-    <h2>5) Producto mas vendido</h2>
-    <button type="button" id="getProductoMasVendido" >Confirmar</button>
-    <div id="contenedorProducto">
+    <div>
+      <h2>Editar un producto</h2>
+      <input type="number" placeholder="id" id="idPutProducto">
+      <input type="text" placeholder="nombre" id="idPutNombre">
+      <input type="number" placeholder="precio" id="idPutPrecio">
+      <button type="button" id="submitPutProducto">Aceptar</button>
     </div>
-  </div>
 
-  <div>
-    <h2>Ver lista de productos</h2>
-    <button type="button" id="verProductos" >Confirmar</button>
-    <div id="contenedorTodosProductos">
+    <div>
+      <h2>Borrar un producto</h2>
+      <input type="number" placeholder="id" id="idDeleteProducto">
+      <button type="button" id="deleteProducto" class="botonDelete">Aceptar</button>
     </div>
-  </div>
-
+  </section>
 
 </body>
+    <script>
+      document.querySelector("#submitPostProducto").addEventListener("click", postProducto);
+      document.querySelector("#submitPutProducto").addEventListener("click", putProducto);
+      document.querySelector("#deleteProducto").addEventListener("click", deleteProducto);
+      
+function postProducto() {
+	let id = document.querySelector("#idAddProducto").value;
+	let nombre = document.querySelector("#idAddNombre").value;
+	let precio = document.querySelector("#idAddPrecio").value;
+
+	let producto = {
+		"id": id,
+		"nombre": nombre,
+		"precio": precio
+	};
+	console.log(producto);
+	let url = "producto/add";
+	fetch(url, {
+		'method': 'POST',
+		'headers': {
+			'Content-Type': 'application/json',
+			'Accept': 'application/json'
+		},
+		'body': JSON.stringify(producto)
+	})
+}
+
+function putProducto() {
+	let id = document.querySelector("#idPutProducto").value;
+	let nombre = document.querySelector("#idPutNombre").value;
+	let precio = document.querySelector("#idPutPrecio").value;
+	let producto = {
+		"id": id,
+		"nombre": nombre,
+		"precio": precio,
+	};
+	let url = "producto/update/" + id;
+	fetch(url, {
+		"method": "PUT",
+		"headers": { "Content-Type": "application/json" },
+		"body": JSON.stringify(producto)
+	}).then(function (r) {
+		if (!r.ok) {
+			console.log("Error")
+		}
+		return r.json()
+	})
+		.then(function (json) {
+			console.log("ok");
+		})
+		.catch(function (e) {
+			console.log(e)
+		})
+}
+
+function deleteProducto() {
+	let id = document.querySelector("#idDeleteProducto").value;
+	let url = "producto/delete/" + id;
+	fetch(url, {
+		"method": "DELETE",
+		"headers": { "Content-Type": "application/json" },
+	}).then(function (r) {
+		if (!r.ok) {
+			console.log("Error")
+		}
+		return r.json()
+	})
+		.then(function (json) {
+			console.log("ok");
+		})
+		.catch(function (e) {
+			console.log(e)
+		})
+}
+    </script>
 <script src="main.js" charset="utf-8"></script>
+
+
 </html>
